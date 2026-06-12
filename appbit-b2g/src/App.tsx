@@ -1,5 +1,13 @@
+import { useState } from 'react'
+import { MapPin, ShieldAlert, Briefcase, GraduationCap } from 'lucide-react'
 import MapaVisent from './components/MapaVisent'
-import ChatIA from './components/ChatIA' //
+import ChatIA from './components/ChatIA'
+
+interface Mensagem {
+  id: number;
+  autor: 'usuario' | 'ia';
+  texto: string;
+}
 export default function App() {
   return (
     <div style={{ 
@@ -37,8 +45,24 @@ export default function App() {
           <span style={{ fontSize: '12px', color: '#94a3b8', textTransform: 'uppercase', tracking: 'wide' }}>
             Painel de Dados Públicos — Visent CDRView
           </span>
-        </div>
+=======
+    <div style={{ display: 'flex', height: '100vh', width: '100vw', fontFamily: 'sans-serif', backgroundColor: '#0f172a', color: '#f8fafc', margin: 0, overflow: 'hidden' }}>
+      
+      {/* Barra Lateral de Navegação (Módulos do MVP) */}
+      <aside style={{ width: '260px', backgroundColor: '#1e293b', padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px', borderRight: '1px solid #334155' }}>
+        <h2 style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#38bdf8', marginBottom: '20px' }}>App BiT — B2G</h2>
         
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', borderRadius: '6px', cursor: 'pointer', color: '#94a3b8' }}>
+            <GraduationCap size={20} /> <span>Formações</span>
+          </div>
+          {/* 🔥 Empregabilidade agora marcada como o módulo ativo do MVP */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', borderRadius: '6px', backgroundColor: '#334155', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}>
+            <Briefcase size={20} /> <span>Empregabilidade</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', borderRadius: '6px', cursor: 'pointer', color: '#94a3b8' }}>
+            <MapPin size={20} /> <span>Iniciativas Sociais</span>
+          </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
           <div>
             <h2 style={{ margin: '0 0 5px 0', fontSize: '20px' }}>Monitoramento do Eixo Sudeste</h2>
