@@ -1,54 +1,61 @@
 import { useState } from 'react'
-import { MapPin, ShieldAlert, Briefcase, GraduationCap } from 'lucide-react'
+import { MapPin, ShieldAlert, Briefcase, GraduationCap, MessagesSquare, Bot } from 'lucide-react'
 import MapaVisent from './components/MapaVisent'
-import ChatIA from './components/ChatIA'
 
 interface Mensagem {
   id: number;
   autor: 'usuario' | 'ia';
   texto: string;
 }
+
 export default function App() {
+  // Estado para armazenar o histórico de consultas da IA
+  const [mensagens, setMensagens] = useState<Mensagem[]>([
+    { id: 1, autor: 'ia', texto: 'Painel Vísent AI carregado. Faça uma consulta sobre a infraestrutura ou o índice de empregabilidade de SP ou RJ.' }
+  ]);
+  
+  // Estado para controlar o texto que o usuário digita
+  const [textoInput, setTextoInput] = useState('');
+
+  // Função que processa a pergunta e gera a resposta simulada (Mock) para o MVP
+  const lidarComConsulta = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!textoInput.trim()) return;
+
+    const novaMsgUsuario: Mensagem = {
+      id: Date.now(),
+      autor: 'usuario',
+      texto: textoInput
+    };
+
+    setMensagens(prev => [...prev, novaMsgUsuario]);
+    const pergunta = textoInput.toLowerCase();
+    setTextoInput('');
+
+    // Simulação da resposta da IA rodando em background
+    setTimeout(() => {
+      let respostaIA = "Cruzando dados de mobilidade do CDRView com indicadores socioeconômicos...";
+
+      if (pergunta.includes('são paulo') || pergunta.includes('sp')) {
+        respostaIA = "⚠️ SP - Zona Sul: Concentração populacional crítica identificada (85k pessoas). A infraestrutura de rede móvel atual é predominantemente 3G/Escassa, gerando um forte impacto negativo no Índice de Empregabilidade da região, atualmente avaliado em 0.42 (Baixo).";
+      } else if (pergunta.includes('rio') || pergunta.includes('rj') || pergunta.includes('rio de janeiro')) {
+        respostaIA = "✅ RJ - Centro: Cenário de alta estabilidade. Região beneficiada por ampla cobertura de infraestrutura 5G aliada a uma densidade corporativa consolidada. O Índice de Empregabilidade local reflete essa sinergia, atingindo 0.78 (Alto).";
+      } else {
+        respostaIA = "Análise do Eixo Sudeste: Identificamos um gap estrutural severo na correlação entre conectividade móvel e oportunidades de trabalho em bairros periféricos de grandes metrópoles. Recomenda-se priorizar investimentos em infraestrutura de rede para áreas com índice de empregabilidade abaixo de 0.50.";
+      }
+
+      setMensagens(prev => [...prev, {
+        id: Date.now() + 1,
+        autor: 'ia',
+        texto: respostaIA
+      }]);
+    }, 800);
+  };
+
   return (
-    <div style={{ 
-      backgroundColor: '#0f172a', // Fundo azul escuro combinando com o mapa
-      color: '#fff', 
-      fontFamily: 'sans-serif', 
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
-      
-      {/* 1. CABEÇALHO DO SITE & MENU */}
-      <header style={{ padding: '20px', borderBottom: '1px solid #1e293b', backgroundColor: '#1e293b' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-          <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#38bdf8' }}>
-            Aplicativo BiT — B2G
-          </h1>
-          <span style={{ fontSize: '12px', backgroundColor: '#0284c7', padding: '4px 8px', borderRadius: '4px', fontWeight: 'bold' }}>
-            PROTÓTIPO MVP
-          </span>
-        </div>
-
-        {/* Links do Menu */}
-        <nav style={{ display: 'flex', gap: '20px', fontSize: '14px' }}>
-          <span style={{ color: '#94a3b8', cursor: 'pointer' }}>Formações</span>
-          <span style={{ color: '#38bdf8', fontWeight: 'bold', borderBottom: '2px solid #38bdf8', paddingBottom: '4px', cursor: 'pointer' }}>Empregabilidade</span>
-          <span style={{ color: '#94a3b8', cursor: 'pointer' }}>Iniciativas Sociais</span>
-          <span style={{ color: '#94a3b8', cursor: 'pointer' }}>Saúde Mental</span>
-        </nav>
-      </header>
-
-      {/* 2. PAINEL DE INDICADORES (O que estava pendente agora vira destaque!) */}
-      <section style={{ padding: '20px', backgroundColor: '#111827' }}>
-        <div style={{ marginBottom: '5px' }}>
-          <span style={{ fontSize: '12px', color: '#94a3b8', textTransform: 'uppercase', tracking: 'wide' }}>
-            Painel de Dados Públicos — Visent CDRView
-          </span>
-=======
     <div style={{ display: 'flex', height: '100vh', width: '100vw', fontFamily: 'sans-serif', backgroundColor: '#0f172a', color: '#f8fafc', margin: 0, overflow: 'hidden' }}>
       
-      {/* Barra Lateral de Navegação (Módulos do MVP) */}
+      {/* Barra Lateral de Navegação */}
       <aside style={{ width: '260px', backgroundColor: '#1e293b', padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px', borderRight: '1px solid #334155' }}>
         <h2 style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#38bdf8', marginBottom: '20px' }}>App BiT — B2G</h2>
         
@@ -56,48 +63,94 @@ export default function App() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', borderRadius: '6px', cursor: 'pointer', color: '#94a3b8' }}>
             <GraduationCap size={20} /> <span>Formações</span>
           </div>
-          {/* 🔥 Empregabilidade agora marcada como o módulo ativo do MVP */}
+          
+          {/* Indicador Ativo do Módulo no MVP */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', borderRadius: '6px', backgroundColor: '#334155', color: '#fff', fontWeight: 'bold', cursor: 'pointer' }}>
             <Briefcase size={20} /> <span>Empregabilidade</span>
           </div>
+          
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', borderRadius: '6px', cursor: 'pointer', color: '#94a3b8' }}>
             <MapPin size={20} /> <span>Iniciativas Sociais</span>
           </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
-          <div>
-            <h2 style={{ margin: '0 0 5px 0', fontSize: '20px' }}>Monitoramento do Eixo Sudeste</h2>
-            <p style={{ margin: 0, fontSize: '14px', color: '#94a3b8' }}>
-              Análise cruzada de conectividade e vulnerabilidade social.
-            </p>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', borderRadius: '6px', cursor: 'pointer', color: '#94a3b8' }}>
+            <ShieldAlert size={20} /> <span>Saúde Mental</span>
           </div>
+        </nav>
+        
+        <div style={{ fontSize: '0.8rem', color: '#94a3b8', borderTop: '1px solid #334155', paddingTop: '10px' }}>
+          Eixo Sudeste — Monitoramento SP / RJ
+        </div>
+      </aside>
 
-          {/* Cards com as regras do MVP cumpridas */}
-          <div style={{ display: 'flex', gap: '15px' }}>
-            <div style={{ backgroundColor: '#1e293b', padding: '10px 15px', borderRadius: '6px', borderLeft: '4px solid #38bdf8' }}>
-              <div style={{ fontSize: '11px', color: '#94a3b8' }}>Regiões Incluídas</div>
-              <div style={{ fontSize: '16px', fontWeight: 'bold' }}>2 Analisadas (SP / RJ)</div>
+      {/* Área Principal (Mapa + IA) */}
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative' }}>
+        
+        {/* Topbar */}
+        <header style={{ height: '60px', backgroundColor: '#1e293b', display: 'flex', alignItems: 'center', padding: '0 20px', borderBottom: '1px solid #334155', justifyContent: 'space-between' }}>
+          <h1 style={{ fontSize: '1rem', fontWeight: '500' }}>Painel de Dados Públicos — Vísent CDRView</h1>
+          <span style={{ fontSize: '11px', backgroundColor: '#0284c7', padding: '3px 8px', borderRadius: '4px', fontWeight: 'bold' }}>MVP CONTRATO</span>
+        </header>
+
+        {/* Espaço do Mapa + Janela Flutuante da IA */}
+        <div style={{ flex: 1, position: 'relative', zIndex: 1 }}>
+          <MapaVisent />
+
+          {/* Terminal Suspenso da IA */}
+          <div style={{
+            position: 'absolute',
+            top: '20px',
+            left: '20px',
+            zIndex: 1100,
+            width: '340px',
+            maxHeight: '75%',
+            backgroundColor: 'rgba(30, 41, 59, 0.85)',
+            backdropFilter: 'blur(8px)',
+            borderRadius: '8px',
+            border: '1px solid rgba(71, 85, 105, 0.5)',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden'
+          }}>
+            <div style={{ padding: '12px 15px', borderBottom: '1px solid rgba(71, 85, 105, 0.5)', backgroundColor: 'rgba(15, 23, 42, 0.6)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Bot size={16} style={{ color: '#38bdf8' }} />
+              <strong style={{ fontSize: '12px', color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Terminal Analítico Visent AI</strong>
             </div>
             
-            <div style={{ backgroundColor: '#1e293b', padding: '10px 15px', borderRadius: '6px', borderLeft: '4px solid #22c55e' }}>
-              <div style={{ fontSize: '11px', color: '#94a3b8' }}>Indicador Ativo</div>
-              <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#22c55e' }}>Índice de Empregabilidade</div>
+            <div style={{ padding: '15px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', flex: 1, fontSize: '13px', lineHeight: '1.4' }}>
+              {mensagens.map((msg) => (
+                <div key={msg.id} style={{
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  backgroundColor: msg.autor === 'usuario' ? '#0284c7' : 'rgba(15, 23, 42, 0.5)',
+                  borderLeft: msg.autor === 'ia' ? '3px solid #38bdf8' : 'none',
+                  alignSelf: msg.autor === 'usuario' ? 'flex-end' : 'flex-start',
+                  maxWidth: '90%'
+                }}>
+                  {msg.texto}
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </section>
 
-      {/* 3. ÁREA PRINCIPAL DO PROTÓTIPO */}
-      <main style={{ flex: 1, padding: '20px', backgroundColor: '#0f172a', display: 'flex', gap: '20px', height: '600px' }}>
-        
-        {/* Chat de IA na Esquerda */}
-        <ChatIA />
+        {/* Formulário da Barra de Consulta Inferior */}
+        <form onSubmit={lidarComConsulta} style={{ padding: '20px', backgroundColor: '#1e293b', borderTop: '1px solid #334155', display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <MessagesSquare style={{ color: '#38bdf8' }} />
+          <input 
+            type="text" 
+            value={textoInput}
+            onChange={(e) => setTextoInput(e.target.value)}
+            placeholder="Pergunte à IA: 'Como está a situação de São Paulo?' ou 'Verificar Rio de Janeiro'..." 
+            style={{ flex: 1, padding: '12px', borderRadius: '6px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', outline: 'none' }}
+          />
+          <button type="submit" style={{ padding: '12px 20px', backgroundColor: '#38bdf8', color: '#0f172a', border: 'none', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
+            Consultar
+          </button>
+        </form>
 
-        {/* Mapa na Direita */}
-        <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden', border: '1px solid #1e293b' }}>
-          <MapaVisent />
-        </div>
       </main>
-
     </div>
   )
 }
