@@ -1,0 +1,75 @@
+# ========================================
+# App BiT (B2G) — Equipe 16
+# ========================================
+
+# ---- Dependências ----
+node_modules/
+.pnp
+.pnp.js
+
+# ---- Build / Output ----
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# ---- Ambiente / Secrets ----
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.key
+*.pem
+
+# ---- Logs ----
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- Banco de dados local ----
+*.sqlite
+*.sqlite3
+*.db
+
+
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# ---- IDEs e Editores ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ---- Testes / Coverage ----
+coverage/
+.nyc_output/
+*.lcov
+
+# ---- Docker ----
+docker-compose.override.yml
+
+# ---- Misc ----
+.cache/
+.parcel-cache/
+.turbo/
