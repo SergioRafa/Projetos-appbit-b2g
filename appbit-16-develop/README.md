@@ -9,6 +9,7 @@
 Gestores públicos não têm acesso fácil a dados cruzados de mobilidade, emprego e saúde mental por região para embasar políticas de inclusão social.
 
 Nossa solução: uma **PWA (Web App Responsiva)** com agente de IA que responde perguntas como:
+
 - *"Onde há alta concentração de pessoas com baixo sinal de rede?"*
 - *"Quais regiões têm piores índices de saúde mental e sem viabilidade de teleatendimento?"*
 
@@ -53,11 +54,13 @@ appbit-16/
 ## 🚀 Como Rodar Localmente
 
 ### Pré-requisitos
+
 - Node.js 18+
 - Docker (para o banco PostgreSQL)
 - Git
 
 ### 1. Clone o repositório e instale dependências
+
 ```bash
 git clone https://github.com/elirwebGit/appbit-16.git
 cd appbit-16
@@ -66,11 +69,13 @@ npm install
 ```
 
 ### 2. Suba o banco de dados com Docker
+
 ```bash
 docker-compose up -d
 ```
 
 ### 3. Configure as variáveis de ambiente
+
 ```bash
 cd apps/api
 cp .env.example .env
@@ -78,12 +83,14 @@ cp .env.example .env
 ```
 
 ### 4. Rode as migrations do banco
+
 ```bash
 cd apps/api
 npx prisma migrate dev
 ```
 
 ### 5. Inicie o servidor de desenvolvimento
+
 ```bash
 cd apps/api
 npm run dev
