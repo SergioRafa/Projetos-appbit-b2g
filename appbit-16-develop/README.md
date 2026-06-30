@@ -18,7 +18,7 @@ Nossa solução: uma **PWA (Web App Responsiva)** com agente de IA que responde 
 ## 🛠️ Stack Tecnológica
 
 | Camada | Tecnologia |
-|---|---|
+| :--- | :--- |
 | **Frontend** | React 18 + TypeScript + Vite + Leaflet.js |
 | **Backend** | Express 5.x + Node.js (Arquitetura Hexagonal) |
 | **Banco de Dados** | PostgreSQL + PostGIS (via Docker) + Prisma ORM |
@@ -28,9 +28,30 @@ Nossa solução: uma **PWA (Web App Responsiva)** com agente de IA que responde 
 
 ---
 
+## 📡 Endpoints da API
+
+| Método | Rota | Descrição |
+| :--- | :--- | :--- |
+| `GET` | `/health` | Health check do servidor |
+| `GET` | `/api/regions` | Lista todas as regiões |
+| `GET` | `/api/mapa` | Dados geoespaciais para o mapa |
+| `GET` | `/api/indicadores` | Indicadores disponíveis |
+| `POST` | `/api/dados` | Consulta com IA em linguagem natural |
+
+---
+
+## 👥 Equipe 16
+
+| Pessoa | Papel |
+| :--- | :--- |
+| **Atiquilson** | PM — Product Manager |
+| **Elir** | Backend + Arquitetura |
+| **Sergio** | Frontend |
+| **Giorgia** | UX/UI |
+| **Pedro** | Fullstack + Integração IA |
+
 ## 📁 Estrutura do Repositório
 
-```
 appbit-16/
 ├── apps/
 │   ├── api/              # Backend — Express + Hexagonal + Prisma
@@ -47,7 +68,6 @@ appbit-16/
 │   ├── contratos-api.md  # Formato dos endpoints REST
 │   └── adrs/             # Decisões arquiteturais registradas
 └── docker-compose.yml    # Banco PostgreSQL local
-```
 
 ---
 
@@ -99,33 +119,7 @@ npm run dev
 O servidor estará disponível em `http://localhost:3000`
 A documentação Swagger estará em `http://localhost:3000/docs`
 
----
-
-## 📡 Endpoints da API
-
-| Método | Rota | Descrição |
-|---|---|---|
-| `GET` | `/health` | Health check do servidor |
-| `GET` | `/api/regions` | Lista todas as regiões |
-| `GET` | `/api/mapa` | Dados geoespaciais para o mapa |
-| `GET` | `/api/indicadores` | Indicadores disponíveis |
-| `POST` | `/api/dados` | Consulta com IA em linguagem natural |
-
 Ver detalhes em [`docs/contratos-api.md`](./docs/contratos-api.md)
-
----
-
-## 👥 Equipe 16
-
-| Pessoa | Papel |
-|---|---|
-| **Atiquilson** | PM — Product Manager |
-| **Elir** | Backend + Arquitetura |
-| **Sergio** | Frontend |
-| **Giorgia** | UX/UI |
-| **Pedro** | Fullstack + Integração IA |
-
----
 
 ## 📄 Documentação
 
