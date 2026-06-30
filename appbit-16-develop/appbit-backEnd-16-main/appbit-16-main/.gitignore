@@ -1,0 +1,25 @@
+# Node
+node_modules/
+**/node_modules/
+
+# Build
+dist/
+**/dist/
+
+# Env
+.env
+**/.env
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker overrides
+docker-compose.override.yml

@@ -10,48 +10,27 @@ Gestores públicos não têm acesso fácil a dados cruzados de mobilidade, empre
 
 Nossa solução: uma **PWA (Web App Responsiva)** com agente de IA que responde perguntas como:
 
-- *"Onde há alta concentração de pessoas com baixo sinal de rede?"*
-- *"Quais regiões têm piores índices de saúde mental e sem viabilidade de teleatendimento?"*
+- _"Onde há alta concentração de pessoas com baixo sinal de rede?"_
+- _"Quais regiões têm piores índices de saúde mental e sem viabilidade de teleatendimento?"_
 
 ---
 
 ## 🛠️ Stack Tecnológica
 
-| Camada | Tecnologia |
-| :--- | :--- |
-| **Frontend** | React 18 + TypeScript + Vite + Leaflet.js |
-| **Backend** | Express 5.x + Node.js (Arquitetura Hexagonal) |
-| **Banco de Dados** | PostgreSQL + PostGIS (via Docker) + Prisma ORM |
-| **IA** | Gemini API (RAG — Retrieval-Augmented Generation) |
-| **Dataset Base** | Vísent CDRView |
-| **Deploy** | Railway (API) + Vercel (Frontend) |
+| Camada             | Tecnologia                                        |
+| ------------------ | ------------------------------------------------- |
+| **Frontend**       | React 18 + TypeScript + Vite + Leaflet.js         |
+| **Backend**        | Express 5.x + Node.js (Arquitetura Hexagonal)     |
+| **Banco de Dados** | PostgreSQL + PostGIS (via Docker) + Prisma ORM    |
+| **IA**             | Gemini API (RAG — Retrieval-Augmented Generation) |
+| **Dataset Base**   | Vísent CDRView                                    |
+| **Deploy**         | Railway (API) + Vercel (Frontend)                 |
 
 ---
-
-## 📡 Endpoints da API
-
-| Método | Rota | Descrição |
-| :--- | :--- | :--- |
-| `GET` | `/health` | Health check do servidor |
-| `GET` | `/api/regions` | Lista todas as regiões |
-| `GET` | `/api/mapa` | Dados geoespaciais para o mapa |
-| `GET` | `/api/indicadores` | Indicadores disponíveis |
-| `POST` | `/api/dados` | Consulta com IA em linguagem natural |
-
----
-
-## 👥 Equipe 16
-
-| Pessoa | Papel |
-| :--- | :--- |
-| **Atiquilson** | PM — Product Manager |
-| **Elir** | Backend + Arquitetura |
-| **Sergio** | Frontend |
-| **Giorgia** | UX/UI |
-| **Pedro** | Fullstack + Integração IA |
 
 ## 📁 Estrutura do Repositório
 
+```
 appbit-16/
 ├── apps/
 │   ├── api/              # Backend — Express + Hexagonal + Prisma
@@ -68,6 +47,7 @@ appbit-16/
 │   ├── contratos-api.md  # Formato dos endpoints REST
 │   └── adrs/             # Decisões arquiteturais registradas
 └── docker-compose.yml    # Banco PostgreSQL local
+```
 
 ---
 
@@ -109,7 +89,14 @@ cd apps/api
 npx prisma migrate dev
 ```
 
-### 5. Inicie o servidor de desenvolvimento
+### 5. Rode o Seed no Banco de Dados
+
+```bash
+cd apps/api
+npx ts-node prisma/seed.ts
+```
+
+### 6. Inicie o servidor de desenvolvimento
 
 ```bash
 cd apps/api
@@ -119,7 +106,33 @@ npm run dev
 O servidor estará disponível em `http://localhost:3000`
 A documentação Swagger estará em `http://localhost:3000/docs`
 
+---
+
+## 📡 Endpoints da API
+
+| Método | Rota               | Descrição                            |
+| ------ | ------------------ | ------------------------------------ |
+| `GET`  | `/health`          | Health check do servidor             |
+| `GET`  | `/api/regions`     | Lista todas as regiões               |
+| `GET`  | `/api/mapa`        | Dados geoespaciais para o mapa       |
+| `GET`  | `/api/indicadores` | Indicadores disponíveis              |
+| `POST` | `/api/dados`       | Consulta com IA em linguagem natural |
+
 Ver detalhes em [`docs/contratos-api.md`](./docs/contratos-api.md)
+
+---
+
+## 👥 Equipe 16
+
+| Pessoa         | Papel                     |
+| -------------- | ------------------------- |
+| **Atiquilson** | PM — Product Manager      |
+| **Elir**       | Backend + Arquitetura     |
+| **Sergio**     | Frontend                  |
+| **Giorgia**    | UX/UI                     |
+| **Pedro**      | Fullstack + Integração IA |
+
+---
 
 ## 📄 Documentação
 

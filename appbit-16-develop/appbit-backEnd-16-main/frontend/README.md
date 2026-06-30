@@ -3,7 +3,7 @@
 ## Stack
 
 | Tecnologia | Versão | Finalidade |
-|---|---|---|
+| --- | --- | --- |
 | **React** | 18.x | Interfaces reativas e modulares |
 | **Vite** | 6.x | Build ultrarrápido com HMR |
 | **TypeScript** | 5.x | Tipagem estática forte |
